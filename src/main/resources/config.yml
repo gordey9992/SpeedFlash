@@ -62,5 +62,5 @@ web:
   api-key: "your-secret-api-key-here"
   allowed-origins:
     - "http://localhost:8080"
-    - "http://127.0.0.1:8080"
+    - "speedflash-mc.netlify.app"
 
