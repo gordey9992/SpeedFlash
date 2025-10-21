@@ -22,7 +22,7 @@
 
 ### Установка
 
-1. Скачайте последнюю версию из [Releases](https://github.com/yourusername/SpeedFlash/releases)
+1. Скачайте последнюю версию из [Releases](https://github.com/gordey9992/SpeedFlash/releases)
 2. Поместите `SpeedFlash.jar` в папку `plugins/` вашего сервера
 3. Перезапустите сервер
 4. Настройте плагин через `plugins/SpeedFlash/config.yml`
