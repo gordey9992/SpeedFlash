@@ -1,0 +1,50 @@
+name: SpeedFlash
+version: 1.0.0
+main: com.example.speedflash.SpeedFlash
+api-version: 1.21
+description: Плагин для управления скоростью и эффектами игроков
+author: YourName
+website: https://github.com/yourname/SpeedFlash
+
+commands:
+  speedflash:
+    description: Основная команда плагина SpeedFlash
+    usage: /<command> [help|reload|speed|effect|info]
+    permission: speedflash.use
+  speedflashgui:
+    description: Открыть GUI управления SpeedFlash
+    usage: /<command>
+    permission: speedflash.gui
+  speedflashperms:
+    description: Управление правами SpeedFlash
+    usage: /<command> [list|check]
+    permission: speedflash.admin
+
+permissions:
+  speedflash.*:
+    description: Полный доступ к плагину SpeedFlash
+    children:
+      speedflash.use: true
+      speedflash.reload: true
+      speedflash.speed: true
+      speedflash.effect: true
+      speedflash.gui: true
+      speedflash.admin: true
+  speedflash.use:
+    description: Использование основных команд
+    default: true
+  speedflash.reload:
+    description: Перезагрузка конфигурации
+    default: op
+  speedflash.speed:
+    description: Изменение скорости
+    default: op
+  speedflash.effect:
+    description: Применение эффектов
+    default: op
+  speedflash.gui:
+    description: Доступ к GUI
+    default: true
+  speedflash.admin:
+    description: Полный доступ
+    default: op
