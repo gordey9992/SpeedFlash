@@ -1,0 +1,2 @@
+# SpeedFlash
+Плагин SpeedFlash
