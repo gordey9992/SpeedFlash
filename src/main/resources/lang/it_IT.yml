@@ -1,0 +1,174 @@
+# ==============================================
+# SpeedFlash - Localizzazione Italiana
+# Versione: 1.0.0 | Anno: 2025
+# ==============================================
+
+# ====================
+# MESSAGGI PRINCIPALI
+# ====================
+prefix: "&6⚡ &fSpeedFlash &8» &7"
+no-permission: "&c❌ Non hai il permesso per usare questo comando!"
+unknown-command: "&c❌ Comando sconosciuto. Usa &6/speedflash help &cper aiuto."
+player-only: "&c❌ Questo comando è solo per i giocatori!"
+console-only: "&c❌ Questo comando è solo per la console!"
+config-reloaded: "&a✅ Configurazione ricaricata con successo!"
+usage: "&c📖 Utilizzo: &6{usage}"
+invalid-number: "&c🔢 Numero non valido: &6{input}"
+player-not-found: "&c👤 Giocatore &6{player} &cnon trovato!"
+player-offline: "&c👤 Giocatore &6{player} &cnon in linea!"
+
+# ====================
+# COMANDI VELOCITÀ
+# ====================
+speed-set: "&a🎯 Velocità impostata a: &6{speed}"
+speed-reset: "&a🔄 Velocità reimpostata al valore predefinito"
+speed-invalid: "&c🚫 La velocità deve essere tra &60.1 &ce &610.0"
+speed-flying: "&a✈ Velocità di volo impostata a: &6{speed}"
+speed-flying-reset: "&a🔄 Velocità di volo reimpostata"
+
+# ====================
+# COMANDI EFFETTI
+# ====================
+effect-applied: "&a✨ Effetto &6{effect} &aapplicato per &6{duration} &asecondi"
+effect-removed: "&a❌ Effetto &6{effect} &arimosso"
+effect-not-found: "&c🔮 Effetto &6{effect} &cnon trovato"
+effect-list: "&6📜 Effetti disponibili: &e{effects}"
+effect-cleared: "&a🧹 Tutti gli effetti sono stati rimossi"
+effect-duration: "&6⏰ Durata: &e{duration} secondi"
+
+# ====================
+# GUI E INTERFACCIA
+# ====================
+gui-title: "&8⚡ Pannello di Controllo SpeedFlash"
+gui-speed: "&b🎯 Impostazioni Velocità"
+gui-effects: "&d✨ Gestione Effetti"
+gui-close: "&c❌ Chiudi"
+gui-back: "&6↩ Indietro"
+gui-next: "&a➡ Avanti"
+gui-page: "&7Pagina &e{current} &7di &e{total}"
+
+# ====================
+# EFFETTI (con stile italiano)
+# ====================
+effect-speed: "&e⚡ Velocità"
+effect-jump: "&a🦘 Salto Potenziato"
+effect-invisibility: "&7👻 Invisibilità"
+effect-night-vision: "&6👁 Visione Notturna"
+effect-strength: "&c💪 Forza"
+effect-regeneration: "&d❤ Rigenerazione"
+effect-fire-resistance: "&4🔥 Resistenza al Fuoco"
+effect-water-breathing: "&3🌊 Respirazione Subacquea"
+effect-slow-falling: "&b🍃 Caduta Lenta"
+effect-conduit-power: "&1🐠 Potere del Condotto"
+
+# ====================
+# MESSAGGI DI SISTEMA
+# ====================
+reloading: "&a🔄 Ricaricamento configurazione..."
+reload-complete: "&a✅ Ricaricamento completato"
+save-complete: "&a💾 Dati salvati con successo"
+plugin-enabled: "&a✅ SpeedFlash attivato"
+plugin-disabled: "&c❌ SpeedFlash disattivato"
+
+# ====================
+# MESSAGGI DI AIUTO
+# ====================
+help-title: "&6╔══════════════════════════════════╗"
+help-header: "&6║         &e⚡ SpeedFlash &6         ║"
+help-footer: "&6╚══════════════════════════════════╝"
+help-speed: "&6/speedflash speed <valore> &7- Imposta la velocità di movimento"
+help-effect: "&6/speedflash effect <effetto> &7- Applica un effetto"
+help-gui: "&6/speedflash gui &7- Apri l'interfaccia grafica"
+help-reload: "&6/speedflash reload &7- Ricarica la configurazione"
+help-help: "&6/speedflash help &7- Mostra questo aiuto"
+
+# ====================
+# PERMESSI
+# ====================
+permission-denied: "&c🔒 Permessi insufficienti per questa funzione"
+admin-only: "&c👑 Questo comando è solo per gli amministratori"
+vip-only: "&6⭐ Questa funzione è solo per i giocatori VIP"
+
+# ====================
+# DATABASE
+# ====================
+db-connecting: "&a🔗 Connessione al database..."
+db-connected: "&a✅ Connessione al database riuscita"
+db-error: "&c❌ Errore database: &6{error}"
+db-saved: "&a💾 Dati giocatore salvati"
+db-loaded: "&a📂 Dati giocatore caricati"
+
+# ====================
+# INTEGRAZIONE TELEGRAM
+# ====================
+telegram-connected: "&a📱 Bot Telegram connesso"
+telegram-error: "&c❌ Errore Telegram: &6{error}"
+telegram-message-sent: "&a📨 Messaggio inviato a Telegram"
+
+# ====================
+# MESSAGGI GIOCATORI (con stile italiano)
+# ====================
+welcome: "&6🎮 Benvenuto, &e{player}&6! Usa &e/speedflash help"
+first-join: "&a🎉 Benvenuto sul server! Digita &e/kit starter"
+join-message: "&a✅ &e{player} &fsi è unito alla partita"
+leave-message: "&c❌ &e{player} &fha lasciato la partita"
+
+# ====================
+# ERRORI
+# ====================
+error-generic: "&c❌ Si è verificato un errore"
+error-config: "&c❌ Errore caricamento configurazione"
+error-effect: "&c❌ Errore applicazione effetto"
+error-speed: "&c❌ Errore impostazione velocità"
+error-cooldown: "&c⏰ Aspetta &6{time} &csecondi prima di usare di nuovo"
+
+# ====================
+# MESSAGGI DI SUCCESSO
+# ====================
+success-generic: "&a✅ Operazione completata con successo"
+success-updated: "&a🔄 Impostazioni aggiornate"
+success-reset: "&a🔄 Impostazioni reimpostate"
+
+# ====================
+# INFORMAZIONI
+# ====================
+info-version: "&6ℹ Versione plugin: &e{version}"
+info-author: "&6👨‍💻 Autore: &e{author}"
+info-website: "&6🌐 Sito web: &e{website}"
+info-players: "&6👥 Online: &e{online}&6/&e{max}"
+info-tps: "&6⚡ TPS: &e{tps}"
+
+# ====================
+# VALIDAZIONE
+# ====================
+validation-positive: "&c🔢 Il numero deve essere positivo"
+validation-range: "&c📏 Il numero deve essere tra &6{min} &ce &6{max}"
+validation-world: "&c🌍 Mondo &6{world} &cnon trovato"
+
+# ====================
+# MESSAGGI SPECIALI (con stile italiano)
+# ====================
+pizza-time: "&6🍕 È ora della pizza! Velocità aumentata!"
+espresso-boost: "&6☕ Boost espresso! Effetti potenziati!"
+mamma-mia: "&c🍝 Mamma mia! Qualcosa è andato storto!"
+bellissimo: "&a🎭 Bellissimo! Operazione riuscita perfettamente!"
+ciao: "&e👋 Ciao {player}! Buon divertimento!"
+grazie: "&a🙏 Grazie per usare SpeedFlash!"
+
+# ====================
+# EFFETTI SPECIALI ITALIANI
+# ====================
+effect-vespa: "&e🛵 Velocità Vespa"
+effect-ferrari: "&c🏎️ Velocità Ferrari"
+effect-gondola: "&3🛶 Velocità Gondola"
+effect-colosseum: "&6🏛️ Forza del Colosseo"
+effect-davinci: "&5🎨 Genio di Da Vinci"
+effect-gelato: "&b🍦 Freschezza Gelato"
+
+# ====================
+# COMANDI SPECIALI
+# ====================
+cmd-italy: "&6🇮🇹 Forza Italia! Modalità speciale attivata"
+cmd-pasta: "&6🍝 Power della pasta attivato!"
+cmd-mona-lisa: "&5🎨 Sorriso della Monna Lisa applicato"
+cmd-rome: "&6🏛️ Tutte le strade portano a Roma!"

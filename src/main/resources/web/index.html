@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang="title">SpeedFlash - Плагин для Minecraft</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff6b35;
+            --secondary: #2a9d8f;
+            --dark: #264653;
+            --light: #f8f9fa;
+            --accent: #e9c46a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark), #1a1a2e);
+            color: var(--light);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1001;
+            background: rgba(38, 70, 83, 0.95);
+            border-radius: 10px;
+            padding: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .language-btn {
+            background: none;
+            border: none;
+            color: var(--light);
+            padding: 8px 12px;
+            margin: 2px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .language-btn:hover, .language-btn.active {
+            background: var(--primary);
+        }
+
+        /* Header */
+        header {
+            background: rgba(38, 70, 83, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+            background: rgba(233, 196, 106, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 80px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(42,157,143,0.1));
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(255,107,53,0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255,107,53,0.4);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--accent);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s, background 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        /* Commands Section */
+        .commands {
+            padding: 80px 0;
+        }
+
+        .commands-table {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .command-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            align-items: center;
+        }
+
+        .command-row:last-child {
+            border-bottom: none;
+        }
+
+        .command-row.header {
+            background: rgba(255,107,53,0.1);
+            font-weight: bold;
+        }
+
+        .command {
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+        }
+
+        .permission {
+            color: var(--secondary);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Installation Section */
+        .installation {
+            padding: 80px 0;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .steps {
+            display: grid;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .step-number {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0,0,0,0.5);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .command-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                text-align: center;
+            }
+
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .language-selector {
+                top: 80px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <button class="language-btn active" data-lang="ru">🇷🇺 RU</button>
+        <button class="language-btn" data-lang="en">🇺🇸 EN</button>
+        <button class="language-btn" data-lang="it">🇮🇹 IT</button>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span data-lang="logo">SpeedFlash</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features" data-lang="nav.features">Возможности</a></li>
+                    <li><a href="#commands" data-lang="nav.commands">Команды</a></li>
+                    <li><a href="#installation" data-lang="nav.installation">Установка</a></li>
+                    <li><a href="#download" data-lang="nav.download">Скачать</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 data-lang="hero.title">SpeedFlash Плагин</h1>
+            <p data-lang="hero.subtitle">Улучшите ваш Minecraft опыт с настраиваемой скоростью и эффектами</p>
+            <a href="#download" class="cta-button" data-lang="hero.cta">Скачать Сейчас</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title" data-lang="features.title">Основные Возможности</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 data-lang="features.speed.title">Контроль Скорости</h3>
+                    <p data-lang="features.speed.desc">Настройте скорость передвижения и полета простыми командами</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3 data-lang="features.effects.title">Пользовательские Эффекты</h3>
+                    <p data-lang="features.effects.desc">Применяйте усиленные эффекты к игрокам через продвинутую систему</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3 data-lang="features.multilang.title">Мультиязычность</h3>
+                    <p data-lang="features.multilang.desc">Поддержка Русского, Английского и Итальянского с эмодзи</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3 data-lang="features.secure.title">Безопасность</h3>
+                    <p data-lang="features.secure.desc">Продвинутая система прав для полного контроля</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 data-lang="features.database.title">База Данных</h3>
+                    <p data-lang="features.database.desc">Поддержка SQLite и MySQL для сохранения данных</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3 data-lang="features.integration.title">Интеграции</h3>
+                    <p data-lang="features.integration.desc">Telegram бот и API для разработчиков</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commands Section -->
+    <section id="commands" class="commands">
+        <div class="container">
+            <h2 class="section-title" data-lang="commands.title">Команды и Права</h2>
+            <div class="commands-table">
+                <div class="command-row header">
+                    <div data-lang="commands.table.command">Команда</div>
+                    <div data-lang="commands.table.description">Описание</div>
+                    <div data-lang="commands.table.permission">Права</div>
+                </div>
+                <div class="command-row">
+                    <div class="command">/speedflash speed</div>
+                    <div data-lang="commands.speed.desc">Установить скорость передвижения</div>
+                    <div class="permission">speedflash.speed</div>
+                </div>
+                <div class="command-row">
+                    <div class="command">/speedflash effect</div>
+                    <div data-lang="commands.effect.desc">Применить эффекты к игрокам</div>
+                    <div class="permission">speedflash.effect</div>
+                </div>
+                <div class="command-row">
+                    <div class="command">/speedflash gui</div>
+                    <div data-lang="commands.gui.desc">Графический интерфейс</div>
+                    <div class="permission">speedflash.gui</div>
+                </div>
+                <div class="command-row">
+                    <div class="command">/speedflash reload</div>
+                    <div data-lang="commands.reload.desc">Перезагрузить конфигурацию</div>
+                    <div class="permission">speedflash.reload</div>
+                </div>
+                <div class="command-row">
+                    <div class="command">/speedflash help</div>
+                    <div data-lang="commands.help.desc">Показать справку по командам</div>
+                    <div class="permission">speedflash.use</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="installation" class="installation">
+        <div class="container">
+            <h2 class="section-title" data-lang="installation.title">Установка</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h3 data-lang="installation.step1.title">Скачайте Плагин</h3>
+                        <p data-lang="installation.step1.desc">Получите последнюю версию SpeedFlash.jar</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h3 data-lang="installation.step2.title">Установите на Сервер</h3>
+                        <p data-lang="installation.step2.desc">Поместите .jar файл в папку plugins вашего сервера Minecraft</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h3 data-lang="installation.step3.title">Перезапустите Сервер</h3>
+                        <p data-lang="installation.step3.desc">Перезапустите сервер для загрузки плагина</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div>
+                        <h3 data-lang="installation.step4.title">Настройте</h3>
+                        <p data-lang="installation.step4.desc">Настройте параметры в файле config.yml</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="features" style="padding-bottom: 120px;">
+        <div class="container">
+            <h2 class="section-title" data-lang="download.title">Скачать</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⬇️</div>
+                    <h3 data-lang="download.stable.title">Стабильная Версия</h3>
+                    <p>SpeedFlash v1.0.0</p>
+                    <a href="#" class="cta-button" style="margin-top: 1rem;" data-lang="download.button">Скачать</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3 data-lang="download.github.title">GitHub</h3>
+                    <p data-lang="download.github.desc">Исходный код и отслеживание проблем</p>
+                    <a href="https://github.com/yourname/speedflash" class="cta-button" style="margin-top: 1rem;">GitHub</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3 data-lang="download.docs.title">Документация</h3>
+                    <p data-lang="download.docs.desc">Полное руководство по использованию</p>
+                    <a href="#" class="cta-button" style="margin-top: 1rem;" data-lang="download.docs.button">Документация</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#features" data-lang="footer.features">Возможности</a>
+                <a href="#commands" data-lang="footer.commands">Команды</a>
+                <a href="#installation" data-lang="footer.installation">Установка</a>
+                <a href="#download" data-lang="footer.download">Скачать</a>
+                <a href="https://github.com/yourname/speedflash">GitHub</a>
+            </div>
+            <div class="copyright" data-lang="footer.copyright">
+                &copy; 2025 SpeedFlash Плагин. Все права защищены.<br>
+                Не аффилирован с Mojang или Microsoft.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language data
+        const translations = {
+            ru: {
+                // Meta
+                "title": "SpeedFlash - Плагин для Minecraft",
+                "logo": "SpeedFlash",
+                
+                // Navigation
+                "nav.features": "Возможности",
+                "nav.commands": "Команды", 
+                "nav.installation": "Установка",
+                "nav.download": "Скачать",
+                
+                // Hero
+                "hero.title": "SpeedFlash Плагин",
+                "hero.subtitle": "Улучшите ваш Minecraft опыт с настраиваемой скоростью и эффектами",
+                "hero.cta": "Скачать Сейчас",
+                
+                // Features
+                "features.title": "Основные Возможности",
+                "features.speed.title": "Контроль Скорости",
+                "features.speed.desc": "Настройте скорость передвижения и полета простыми командами",
+                "features.effects.title": "Пользовательские Эффекты",
+                "features.effects.desc": "Применяйте усиленные эффекты к игрокам через продвинутую систему",
+                "features.multilang.title": "Мультиязычность", 
+                "features.multilang.desc": "Поддержка Русского, Английского и Итальянского с эмодзи",
+                "features.secure.title": "Безопасность",
+                "features.secure.desc": "Продвинутая система прав для полного контроля",
+                "features.database.title": "База Данных",
+                "features.database.desc": "Поддержка SQLite и MySQL для сохранения данных",
+                "features.integration.title": "Интеграции",
+                "features.integration.desc": "Telegram бот и API для разработчиков",
+                
+                // Commands
+                "commands.title": "Команды и Права",
+                "commands.table.command": "Команда",
+                "commands.table.description": "Описание", 
+                "commands.table.permission": "Права",
+                "commands.speed.desc": "Установить скорость передвижения",
+                "commands.effect.desc": "Применить эффекты к игрокам",
+                "commands.gui.desc": "Графический интерфейс",
+                "commands.reload.desc": "Перезагрузить конфигурацию",
+                "commands.help.desc": "Показать справку по командам",
+                
+                // Installation
+                "installation.title": "Установка",
+                "installation.step1.title": "Скачайте Плагин",
+                "installation.step1.desc": "Получите последнюю версию SpeedFlash.jar",
+                "installation.step2.title": "Установите на Сервер", 
+                "installation.step2.desc": "Поместите .jar файл в папку plugins вашего сервера Minecraft",
+                "installation.step3.title": "Перезапустите Сервер",
+                "installation.step3.desc": "Перезапустите сервер для загрузки плагина",
+                "installation.step4.title": "Настройте",
+                "installation.step4.desc": "Настройте параметры в файле config.yml",
+                
+                // Download
+                "download.title": "Скачать",
+                "download.stable.title": "Стабильная Версия",
+                "download.github.title": "GitHub",
+                "download.github.desc": "Исходный код и отслеживание проблем",
+                "download.docs.title": "Документация",
+                "download.docs.desc": "Полное руководство по использованию",
+                "download.button": "Скачать",
+                "download.docs.button": "Документация",
+                
+                // Footer
+                "footer.features": "Возможности",
+                "footer.commands": "Команды",
+                "footer.installation": "Установка", 
+                "footer.download": "Скачать",
+                "footer.copyright": "© 2025 SpeedFlash Плагин. Все права защищены.\nНе аффилирован с Mojang или Microsoft."
+            },
+            
+            en: {
+                "title": "SpeedFlash - Minecraft Plugin",
+                "logo": "SpeedFlash",
+                "nav.features": "Features",
+                "nav.commands": "Commands",
+                "nav.installation": "Installation", 
+                "nav.download": "Download",
+                "hero.title": "SpeedFlash Plugin",
+                "hero.subtitle": "Enhance your Minecraft experience with customizable speed and effects",
+                "hero.cta": "Download Now",
+                "features.title": "Main Features",
+                "features.speed.title": "Speed Control",
+                "features.speed.desc": "Adjust movement and flying speed with simple commands",
+                "features.effects.title": "Custom Effects", 
+                "features.effects.desc": "Apply enhanced effects to players through advanced system",
+                "features.multilang.title": "Multi-Language",
+                "features.multilang.desc": "Support for Russian, English and Italian with emojis",
+                "features.secure.title": "Security",
+                "features.secure.desc": "Advanced permission system for full control",
+                "features.database.title": "Database", 
+                "features.database.desc": "SQLite and MySQL support for data storage",
+                "features.integration.title": "Integrations",
+                "features.integration.desc": "Telegram bot and API for developers",
+                "commands.title": "Commands and Permissions",
+                "commands.table.command": "Command",
+                "commands.table.description": "Description",
+                "commands.table.permission": "Permission", 
+                "commands.speed.desc": "Set movement speed",
+                "commands.effect.desc": "Apply effects to players",
+                "commands.gui.desc": "Graphical user interface",
+                "commands.reload.desc": "Reload configuration",
+                "commands.help.desc": "Show command help",
+                "installation.title": "Installation",
+                "installation.step1.title": "Download Plugin",
+                "installation.step1.desc": "Get the latest SpeedFlash.jar version",
+                "installation.step2.title": "Install on Server",
+                "installation.step2.desc": "Place .jar file in your Minecraft server's plugins folder",
+                "installation.step3.title": "Restart Server", 
+                "installation.step3.desc": "Restart server to load the plugin",
+                "installation.step4.title": "Configure",
+                "installation.step4.desc": "Customize settings in config.yml file",
+                "download.title": "Download",
+                "download.stable.title": "Stable Version",
+                "download.github.title": "GitHub",
+                "download.github.desc": "Source code and issue tracking",
+                "download.docs.title": "Documentation", 
+                "download.docs.desc": "Complete usage guide",
+                "download.button": "Download",
+                "download.docs.button": "Documentation",
+                "footer.features": "Features",
+                "footer.commands": "Commands",
+                "footer.installation": "Installation",
+                "footer.download": "Download",
+                "footer.copyright": "© 2025 SpeedFlash Plugin. All rights reserved.\nNot affiliated with Mojang or Microsoft."
+            },
+            
+            it: {
+                "title": "SpeedFlash - Plugin Minecraft",
+                "logo": "SpeedFlash", 
+                "nav.features": "Funzionalità",
+                "nav.commands": "Comandi",
+                "nav.installation": "Installazione",
+                "nav.download": "Download",
+                "hero.title": "Plugin SpeedFlash",
+                "hero.subtitle": "Migliora la tua esperienza Minecraft con velocità ed effetti personalizzabili",
+                "hero.cta": "Scarica Ora",
+                "features.title": "Funzionalità Principali",
+                "features.speed.title": "Controllo Velocità",
+                "features.speed.desc": "Regola la velocità di movimento e volo con comandi semplici",
+                "features.effects.title": "Effetti Personalizzati",
+                "features.effects.desc": "Applica effetti potenziati ai giocatori con sistema avanzato",
+                "features.multilang.title": "Multi-Lingua",
+                "features.multilang.desc": "Supporto per Italiano, Russo e Inglese con emoji",
+                "features.secure.title": "Sicurezza",
+                "features.secure.desc": "Sistema di permessi avanzato per controllo completo",
+                "features.database.title": "Database",
+                "features.database.desc": "Supporto SQLite e MySQL per salvare i dati",
+                "features.integration.title": "Integrazioni",
+                "features.integration.desc": "Bot Telegram e API per sviluppatori",
+                "commands.title": "Comandi e Permessi",
+                "commands.table.command": "Comando",
+                "commands.table.description": "Descrizione",
+                "commands.table.permission": "Permesso",
+                "commands.speed.desc": "Imposta velocità di movimento",
+                "commands.effect.desc": "Applica effetti ai giocatori",
+                "commands.gui.desc": "Interfaccia grafica utente",
+                "commands.reload.desc": "Ricarica configurazione",
+                "commands.help.desc": "Mostra aiuto comandi",
+                "installation.title": "Installazione",
+                "installation.step1.title": "Scarica Plugin",
+                "installation.step1.desc": "Ottieni ultima versione SpeedFlash.jar",
+                "installation.step2.title": "Installa sul Server",
+                "installation.step2.desc": "Posiziona file .jar in cartella plugins server Minecraft",
+                "installation.step3.title": "Riavvia Server",
+                "installation.step3.desc": "Riavvia server per caricare plugin",
+                "installation.step4.title": "Configura",
+                "installation.step4.desc": "Personalizza impostazioni in file config.yml",
+                "download.title": "Download",
+                "download.stable.title": "Versione Stabile",
+                "download.github.title": "GitHub",
+                "download.github.desc": "Codice sorgente e issue tracking",
+                "download.docs.title": "Documentazione",
+                "download.docs.desc": "Guida utilizzo completa",
+                "download.button": "Scarica",
+                "download.docs.button": "Documentazione",
+                "footer.features": "Funzionalità",
+                "footer.commands": "Comandi",
+                "footer.installation": "Installazione",
+                "footer.download": "Download",
+                "footer.copyright": "© 2025 Plugin SpeedFlash. Tutti i diritti riservati.\nNon affiliato con Mojang o Microsoft."
+            }
+        };
+
+        // Language management
+        let currentLang = 'ru';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            
+            // Update active button
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.dataset.lang;
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'TITLE') {
+                        element.textContent = translations[lang][key];
+                    } else if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            
+            // Save preference
+            localStorage.setItem('speedflash-language', lang);
+        }
+
+        // Load saved language
+        const savedLang = localStorage.getItem('speedflash-language') || 'ru';
+        setLanguage(savedLang);
+
+        // Event listeners for language buttons
+        document.querySelectorAll('.language-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setLanguage(btn.dataset.lang);
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(38, 70, 83, 0.98)';
+            } else {
+                header.style.background = 'rgba(38, 70, 83, 0.95)';
+            }
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .step, .command-row').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
