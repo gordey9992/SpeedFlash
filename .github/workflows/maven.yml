@@ -1,0 +1,84 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "main", "master", "development" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  release:
+    types: [ published ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+        
+    - name: Build with Maven
+      run: |
+        mvn -B clean compile --file pom.xml
+        echo "✅ Компиляция завершена успешно"
+        
+    - name: Run tests (if any)
+      run: |
+        mvn -B test --file pom.xml
+        echo "✅ Тесты завершены"
+        
+    - name: Package with Maven
+      run: |
+        mvn -B package --file pom.xml -DskipTests
+        echo "✅ Сборка завершена успешно"
+        
+    - name: Upload JAR artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: SpeedFlash-Plugin
+        path: target/*.jar
+        retention-days: 30
+        if-no-files-found: error
+        
+    - name: Create Release on Tag
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: target/*.jar
+        generate_release_notes: true
+        draft: false
+        prerelease: false
+        
+    - name: Upload to Release
+      if: github.event_name == 'release'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: target/SpeedFlash-${{ github.event.release.tag_name }}.jar
+        asset_name: SpeedFlash-${{ github.event.release.tag_name }}.jar
+        asset_content_type: application/java-archive
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+    - name: Run OWASP Dependency Check
+      run: |
+        mvn org.owasp:dependency-check-maven:check -DskipTests
