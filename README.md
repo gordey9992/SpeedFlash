@@ -1,8 +1,9 @@
 # ⚡ SpeedFlash - Продвинутое управление скоростью и эффектами для Minecraft
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Версия-1.0.0-ff6b35?style=for-the-badge&logo=azurepipelines&logoColor=white" alt="Версия">
+  <img src="https://img.shields.io/badge/Версия-1.21.8-ff6b35?style=for-the-badge&logo=azurepipelines&logoColor=white" alt="Версия">
   <img src="https://img.shields.io/badge/Minecraft-1.21.8-5cb85c?style=for-the-badge&logo=minecraft&logoColor=white" alt="Minecraft">
+  <img src="https://img.shields.io/badge/Сервер-Purpur-orange?style=for-the-badge&logo=server&logoColor=white" alt="Purpur">
   <img src="https://img.shields.io/badge/Java-21-007396?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java">
   <img src="https://img.shields.io/badge/Лицензия-MIT-yellow?style=for-the-badge" alt="Лицензия">
 </p>
@@ -10,8 +11,8 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Сборка-Проходит-success?style=flat-square" alt="Сборка">
   <img src="https://img.shields.io/badge/Тесты-95%25-success?style=flat-square" alt="Тесты">
+  <img src="https://img.shields.io/badge/Совместимость-Purpur_1.21.8-orange?style=flat-square" alt="Совместимость">
   <img src="https://img.shields.io/badge/Скачивания-1000+-blue?style=flat-square" alt="Скачивания">
-  <img src="https://img.shields.io/badge/Звёзды-50+-yellow?style=flat-square" alt="Звёзды">
 </p>
 
 <div align="center">
